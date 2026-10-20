@@ -19,3 +19,8 @@ node_modules/
 # Build files
 dist/
 build/
+# Share configuration examples without credentials
+!backend/.env.example
+
+# macOS metadata
+.DS_Store
