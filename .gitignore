@@ -1,14 +1,16 @@
+
 # Python
 __pycache__/
 *.py[cod]
 venv/
 .venv/
+*.py[cod]
 
 # Node.js
 node_modules/
 dist/
 
-# Environment secrets
+# Environment variables and secrets
 .env
 .env.*
 !.env.example
