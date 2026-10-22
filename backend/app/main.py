@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 app = FastAPI(
-    title="GhostComm Find API",
+    title="GhostComm",
     description="Secure AI-powered lost and found platform.",
     version="1.0.0"
 )

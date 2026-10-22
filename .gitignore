@@ -1,21 +1,19 @@
 # Python
 __pycache__/
 *.py[cod]
-*.pyo
+venv/
+.venv/
 
-# Virtual environment
-backend/venv/
+# Node.js
+node_modules/
+dist/
 
-# Environment variables
+# Environment secrets
 .env
 .env.*
+!.env.example
 
-# VS Code
+# Editors and operating systems
 .vscode/
-
-# Node
-node_modules/
-
-# Build files
-dist/
-build/
+.DS_Store
+Thumbs.db
