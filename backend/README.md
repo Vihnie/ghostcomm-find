@@ -1,5 +1,7 @@
 # Campus Lost and Found Backend
 
+For the connected React frontend in this repository, follow the [root setup guide](../README.md). It runs this backend on port **8010**, which is the frontend development proxy's default target. The standalone examples below use Uvicorn's default port 8000.
+
 Python 3.11+ and FastAPI backend for GhostComm Find, a campus lost-and-found platform. No frontend is included.
 
 ## Features
