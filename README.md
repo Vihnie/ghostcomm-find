@@ -105,3 +105,13 @@ alembic check
 ```
 
 See [backend documentation](backend/README.md) for the endpoint reference and database configuration details.
+
+## Combined Render demo
+
+The repository-root `Dockerfile` builds React and serves the built website from FastAPI at the same URL as `/api/v1`. In Render, clear the service Root Directory, use `./Dockerfile`, and set the Docker Build Context Directory to `.`. Existing backend-only Docker builds under `backend/` still work independently. The root image respects Render's `PORT` variable and initializes the database on startup.
+
+For a shared demo database, set the backend's private `DATABASE_URL` to a PostgreSQL URL using the installed driver: `postgresql+psycopg://...`. Use the database's internal connection details when hosted in the same Render region. Never put this URL in a frontend variable or commit it. Render's free PostgreSQL database expires after 30 days. This deployment is a free demonstration, not durable production hosting.
+
+The current image stores uploaded media locally. On Render Free, those files can disappear after a restart, redeploy, or idle spin-down. A shared PostgreSQL database preserves accounts, descriptions, and messages independently of the app instance, but permanent uploads still require separate object storage. AI matching also needs a valid backend `GEMINI_API_KEY`; it is optional for ordinary reports and messages.
+
+Without `FRONTEND_DIR`, local backend development retains the JSON status endpoint at `/`. The combined image sets `FRONTEND_DIR=/service/frontend` so `/` serves the actual website; `/health`, `/docs`, and `/api/v1` keep their existing behavior.

@@ -13,12 +13,20 @@ class Settings(BaseSettings):
     database_url: str = "sqlite:///./data/campus.db"
     app_timezone: str = "Africa/Nairobi"
     media_dir: Path = Path("data/media")
+    frontend_dir: Path | None = None
     gemini_api_key: SecretStr = SecretStr("")
     gemini_model: str = "gemini-flash-latest"
     campus_email_domains: str = ""
     cors_origins: list[str] = []
     access_token_minutes: int = Field(default=30, ge=1, le=1440)
     max_upload_bytes: int = Field(default=10 * 1024 * 1024, ge=1024, le=20 * 1024 * 1024)
+
+    @field_validator("database_url")
+    @classmethod
+    def select_postgres_driver(cls, value: str) -> str:
+        if value.startswith(("postgres://", "postgresql://")):
+            return "postgresql+psycopg://" + value.split("://", 1)[1]
+        return value
 
     @field_validator("app_timezone")
     @classmethod

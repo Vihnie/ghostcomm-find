@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.config import get_settings
 from app.routes import router
@@ -40,17 +41,19 @@ def create_app() -> FastAPI:
         response.headers["Cache-Control"] = "no-store"
         return response
 
-    @app.get("/", tags=["health"])
-    def root():
-        return {
-            "message": "GhostComm Find API is running!",
-            "status": "online",
-        }
+    if settings.frontend_dir is None:
+
+        @app.get("/", tags=["health"])
+        def root():
+            return {"message": "GhostComm Find API is running!", "status": "online"}
 
     @app.get("/health", tags=["health"])
     def health():
         return {"status": "healthy"}
 
     app.include_router(router, prefix="/api/v1")
+
+    if settings.frontend_dir is not None:
+        app.mount("/", StaticFiles(directory=settings.frontend_dir, html=True), name="frontend")
 
     return app
