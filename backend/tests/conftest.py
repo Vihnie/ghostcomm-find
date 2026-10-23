@@ -16,6 +16,7 @@ def client(tmp_path, monkeypatch):
     monkeypatch.setenv("GEMINI_API_KEY", "")
     monkeypatch.setenv("CAMPUS_EMAIL_DOMAINS", "")
     monkeypatch.setenv("APP_TIMEZONE", "Africa/Nairobi")
+    monkeypatch.delenv("FRONTEND_DIR", raising=False)
     get_settings.cache_clear()
     get_engine.cache_clear()
     limiter.events.clear()

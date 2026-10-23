@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     database_url: str = "sqlite:///./data/campus.db"
     app_timezone: str = "Africa/Nairobi"
     media_dir: Path = Path("data/media")
+    frontend_dir: Path | None = None
     gemini_api_key: SecretStr = SecretStr("")
     gemini_model: str = "gemini-flash-latest"
     campus_email_domains: str = ""
