@@ -21,6 +21,13 @@ class Settings(BaseSettings):
     access_token_minutes: int = Field(default=30, ge=1, le=1440)
     max_upload_bytes: int = Field(default=10 * 1024 * 1024, ge=1024, le=20 * 1024 * 1024)
 
+    @field_validator("database_url")
+    @classmethod
+    def select_postgres_driver(cls, value: str) -> str:
+        if value.startswith(("postgres://", "postgresql://")):
+            return "postgresql+psycopg://" + value.split("://", 1)[1]
+        return value
+
     @field_validator("app_timezone")
     @classmethod
     def validate_timezone(cls, value: str) -> str:
